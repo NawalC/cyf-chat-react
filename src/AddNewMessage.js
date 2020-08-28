@@ -1,51 +1,60 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 
 
-const AddNewMessage = () => {
-  const [newPost, setNewPost] = useState(null)
-  const [changeName, setChangeName] = useState([])
-  const [changeMessage, setChangeMessage] = useState([])
+const AddNewMessage = ({handleMessage}) => {
+  const [newPost, setNewPost] = useState({text: '', from: '' })
+  
 
   const handleSubmit = (e) => {
     //setNewPost(e.target.value)
-    e.preventDefault()
+    e.preventDefault();
 
-    setNewPost({from: changeName, text: changeMessage })
-    //console.log(newPost);
-  }
-
-  const handleOnChangeName = (e) => {
-    setChangeName(e.target.value)
-  }
-  const handleOnChangeMsg = (e) => {
-    setChangeMessage(e.target.value)
-  }
-
-  useEffect(() => {
     fetch('https://nawal-cyf-chat-start.glitch.me/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ from: changeName, text: changeMessage }),
+      body: JSON.stringify({ from: newPost.from, text: newPost.text }),
     })
       .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
+        handleMessage()
       })
       .catch((error) => {
         console.error('Error:', error);
-      });
+        
+      });  
 
-  }, [newPost, changeMessage, changeName])
+      
+
+}
+const handleChange=(e)=>{
+  const value = e.target.name
+  console.log(value);
+  setNewPost({ ...newPost, [e.target.name]: value})
+}
+
   return (
     <div style={{ "width": "50%", "marginLeft": "35%" }}>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
-          <input type="name" id='name' value={changeName} onChange={handleOnChangeName} className="form-control" placeholder="Enter your name" />
+          <input 
+          type="name" 
+          id='name' 
+          value={newPost.from} 
+          onChange={handleChange} 
+          className="form-control" 
+          placeholder="Enter your name" 
+          />
           <label htmlFor="name">Message</label>
-          <input type="message" id='message' value={changeMessage} onChange={handleOnChangeMsg} className="form-control" placeholder=" Enter your message" />
+          <input 
+          type="message" 
+          id='message' 
+          value={newPost.text} 
+          onChange={handleChange} className="form-control"
+          placeholder=" Enter your message" />
           <button type="submit" className="btn btn-primary">Submit</button>
         </div>
 

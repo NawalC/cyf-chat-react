@@ -1,21 +1,26 @@
 import React from 'react'
+import DeleteMessage from './DeleteMessage'
+const Card =({ messages, handleDelete })=>{
 
-const Card =({messages})=>{
-
+  const handleDeleteMessage = (id) => {
+    const undeletedMsg = messages.filter(message => message.id !== id)
+    handleDelete(undeletedMsg)
+  }
     return(
 <div>
   
     
-   {messages.map(message =>{
+   {messages.map((message, index) =>{
    return (
-   <div class="card" >
-  <div class="card-body"> 
+   <div className="card" key = {index} >
+  <div className="card-body"> 
    
-    <h6 class="card-subtitle mb-2 ">{message.from}</h6>
-    <p class="card-text">{message.text}</p> 
+    <h6 className="card-subtitle mb-2 ">{message.from}</h6>
+    <p className="card-text">{message.text}</p> 
 
-    <button type="button" class="btn btn-primary">Edit</button>
-    <button type="button" class="btn btn-danger">Delete</button>
+    <button type="button" className="btn btn-primary">Edit</button>
+    <DeleteMessage message={message} handleDeleteMessage={handleDeleteMessage} />
+    
   </div>
 
 </div> )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
 
-const GetMessages = () => {
+const GetMessages = ({refreshApp}) => {
    const [allMessages, setAllMessages] = useState([])
 
    const handleMessages = (message) => {
@@ -9,14 +9,14 @@ const GetMessages = () => {
    }
 
    useEffect(() => {
-      fetch(`https://nawal-cyf-chat-start.glitch.me/messages`)
+      fetch(`https://cors-anywhere.herokuapp.com/https://nawal-cyf-chat-start.glitch.me/messages`)
          .then(res => res.json())
          .then(data => handleMessages(data))
-   }, [allMessages])
+   }, [refreshApp])
 
    return (
       <div>
-         <Card messages={allMessages} />
+         <Card messages={allMessages}  handleDelete ={handleMessages}/>
       </div>
    )
 }
