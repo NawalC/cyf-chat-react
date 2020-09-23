@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const DeleteMessage = ({ message, handleDeleteMessage }) => {
   const handleDelete = (e) => {
-    fetch(`https://cors-anywhere.herokuapp.com/https://nawal-cyf-chat-start.glitch.me/messages` + message.id, {
+    fetch(`https://nawal-cyf-chat-start.glitch.me/messages` + message.id, {
       method: 'DELETE',
     })
       .then((response) => response.json())

@@ -30,9 +30,9 @@ const AddNewMessage = ({handleMessage}) => {
 
 }
 const handleChange=(e)=>{
-  const value = e.target.name
-  console.log(value);
-  setNewPost({ ...newPost, [e.target.name]: value})
+  const value = e.target.value
+  console.log(newPost);
+  setNewPost({ ...newPost, [e.target.id]: value})
 }
 
   return (
@@ -42,7 +42,7 @@ const handleChange=(e)=>{
           <label htmlFor="name">Name</label>
           <input 
           type="name" 
-          id='name' 
+          id='from' 
           value={newPost.from} 
           onChange={handleChange} 
           className="form-control" 
@@ -51,7 +51,7 @@ const handleChange=(e)=>{
           <label htmlFor="name">Message</label>
           <input 
           type="message" 
-          id='message' 
+          id='text' 
           value={newPost.text} 
           onChange={handleChange} className="form-control"
           placeholder=" Enter your message" />
